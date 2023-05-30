@@ -11,9 +11,7 @@ func TestUserRepository_Create(t *testing.T) {
 	s, teardown := store.TestStore(t, databaseURL)
 	defer teardown("users")
 
-	u, err := s.User().Create(&model.User{
-		Email: "user@email.ru",
-	})
+	u, err := s.User().Create(model.TestUser(t))
 
 	assert.NoError(t, err)
 	assert.NotNil(t, u)
@@ -28,7 +26,8 @@ func TestUserRepository_FindByEmail(t *testing.T) {
 	assert.Error(t, err)
 
 	_, err = s.User().Create(&model.User{
-		Email: "user@email.ru",
+		Email:    "user@email.ru",
+		Password: "123123123123",
 	})
 
 	var u *model.User
