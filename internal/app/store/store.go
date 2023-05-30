@@ -7,8 +7,9 @@ import (
 import _ "github.com/lib/pq" //...
 
 type Store struct {
-	config *Config
-	db     *sql.DB
+	config         *Config
+	db             *sql.DB
+	UserRepository *UserRepository
 }
 
 func New(config *Config) *Store {
@@ -34,4 +35,14 @@ func (s *Store) Close() {
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+func (s *Store) User() *UserRepository {
+	if s.UserRepository != nil {
+		return s.UserRepository
+	}
+	s.UserRepository = &UserRepository{
+		store: s,
+	}
+	return s.UserRepository
 }

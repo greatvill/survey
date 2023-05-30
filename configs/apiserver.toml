@@ -1,4 +1,4 @@
 bind_addr= ":8080"
 
 [store]
-database_url = "host=localhost dbname=restapi_dev sslmode=disable"
+database_url = "postgres://user_db:123456@localhost:5437/restapi_dev?sslmode=disable"
